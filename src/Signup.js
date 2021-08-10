@@ -22,6 +22,8 @@ export default function Signup() {
       .then(response => response.json())
       .then(data => console.log('Success: ', data))
       .catch(err => console.log(err))
+
+    window.location.reload(false)
   }
 
   const handleUserForm = e => {
@@ -35,18 +37,18 @@ export default function Signup() {
       <input type='text' name='lname' placeholder='Last name' onChange={handleUserForm} />
       <input type='email' name='email' placeholder='Your email here' onChange={handleUserForm} />
       <input type='password' name='password' placeholder='your Password here' onChange={handleUserForm} />
-      <button type='submit' onClick={handleUserPost}>
+      <button type='submit' disabled={user.email && user.password && user.lname && user.fname ? false : true} onClick={handleUserPost}>
         Sign me up!
       </button>
       {allUsers &&
         allUsers.map(eachUser => {
           return (
-            <>
+            <div key={eachUser._id}>
               <span> {eachUser.fname}</span>
               <span> {eachUser.lname}</span>
               <span> {eachUser.email}</span>
               <hr />
-            </>
+            </div>
           )
         })}
     </>
