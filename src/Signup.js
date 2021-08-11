@@ -19,11 +19,10 @@ export default function Signup() {
       },
       body: JSON.stringify(user),
     })
-      .then(response => response.json())
-      .then(data => console.log('Success: ', data))
+      .then(rawData => rawData.json())
+      .then(data => localStorage.setItem('user', JSON.stringify(data)))
+      .then(() => window.location.reload(false))
       .catch(err => console.log(err))
-
-    window.location.reload(false)
   }
 
   const handleUserForm = e => {
@@ -51,6 +50,14 @@ export default function Signup() {
             </div>
           )
         })}
+      <button onClick={() => localStorage.clear()}> clear local storage</button>
+      <button
+        onClick={() => {
+          // const localUser = localStorage.getItem('user')
+          console.log(JSON.parse(localStorage.getItem('user')))
+        }}>
+        Get local storage
+      </button>
     </>
   )
 }
